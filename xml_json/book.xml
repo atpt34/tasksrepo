@@ -1,0 +1,32 @@
+<root>
+	<person id="19">
+		<name>Jack</name>
+		<address>Kiyv</address>
+		<cash>10000</cash>
+		<education>Schevchenko</education>
+	</person>
+	<person id="43">
+		<name>Vitaly</name>
+		<address>Minsk</address>
+		<education>MPI</education>
+		<cash>8600</cash>
+	</person>
+	<person id="23">
+		<name>Josh</name>
+		<address>Lviv</address>
+		<cash>18000</cash>
+		<education>Harvard</education>
+	</person>
+	<person id="35">
+		<name>James</name>
+		<address>Kharkiv</address>
+		<cash>19600</cash>
+		<education>Stanford</education>
+	</person> 
+	<person id="13">
+		<name>Viktor</name>
+		<address>Dnipro</address>
+		<cash>9600</cash>
+		<education>KPI</education>
+	</person>
+</root>
