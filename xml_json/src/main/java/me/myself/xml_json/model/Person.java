@@ -2,18 +2,36 @@ package me.myself.xml_json.model;
 
 import java.util.Objects;
 
+import javax.xml.bind.annotation.*;
+
+
 /**
  * 
- * @author oleksiiubuntu
+ * @author Oleksii_Tretinichenko
+ * 
  *
  */
+@XmlRootElement(name="person")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Person {
 
+	@XmlAttribute(name="id")
 	private int id;
+	
+	@XmlElement(name="name")
 	private String name;
+	
+	@XmlElement(name="address")
 	private String address;
+	
+	@XmlElement(name="cash")
 	private int cash;
+	
+	@XmlElement(name="education")
 	private String education;
+	
+	public Person() {
+	}
 	
 	public Person(int id, String name, String address, int cash, String education) {
 		this.id = id;

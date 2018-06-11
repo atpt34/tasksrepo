@@ -1,7 +1,7 @@
 package me.myself.xml_json.controller.task;
 
-import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import me.myself.xml_json.model.Exchange;
@@ -30,7 +30,11 @@ public class JsonTask implements Task {
         List<Exchange> list = service.parseJson(filename);
         view.printMessage(list.toString());
         
-        List<Exchange> actual = list.stream().filter(e -> e.getRate().compareTo(BigDecimal.valueOf(25)) > 0).collect(Collectors.toList());
+        Set<String> actualExchanges = Set.of("USD", "RUB", "EUR");
+        List<Exchange> actual = list.stream()
+//        						.filter(e -> e.getRate().compareTo(BigDecimal.valueOf(25)) > 0)
+        						.filter(e -> actualExchanges.contains(e.getCc()))
+        						.collect(Collectors.toList());
         view.printMessage(actual.toString());
         
         service.createJson("output.json", actual);

@@ -9,6 +9,7 @@ import me.myself.xml_json.controller.task.Task;
 import me.myself.xml_json.controller.task.XmlTask;
 import me.myself.xml_json.model.service.JsonServiceImpl;
 import me.myself.xml_json.model.service.XmlServiceImpl;
+import me.myself.xml_json.model.service.XmlServiceJaxbImpl;
 import me.myself.xml_json.view.View;
 
 public class MainController {
@@ -24,7 +25,8 @@ public class MainController {
 	public MainController(View view) {
 	    this.view = view;
 	    tasks = new LinkedHashMap<>();
-	    tasks.put(XML_REGEX, new XmlTask(new XmlServiceImpl(), view));
+//	    tasks.put(XML_REGEX, new XmlTask(new XmlServiceImpl(), view));
+	    tasks.put(XML_REGEX, new XmlTask(new XmlServiceJaxbImpl(), view));
 	    tasks.put(JSON_REGEX, new JsonTask(new JsonServiceImpl(), view));
 	    tasks.put(ALL_REGEX, defaultTask);
     }

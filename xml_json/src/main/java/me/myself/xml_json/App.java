@@ -14,11 +14,4 @@ public class App
     	new MainController(new View()).processUser(args);
     	
     }
-    
-    public static int returnArray()[] {
-    	int[] res = new int[2];
-    	res[0] = -1;
-    	res[1] = 13;
-		return res;
-    }
 }
