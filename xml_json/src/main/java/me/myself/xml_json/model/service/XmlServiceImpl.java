@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -26,6 +27,7 @@ public class XmlServiceImpl implements XmlService {
     private static final String ROOT = "root";
 
     public List<Person> parseXml(String filename) {
+    	Objects.requireNonNull(filename);
 		try {
 		    List<Person> list = new ArrayList<>();
 			SAXReader reader = new SAXReader();
@@ -43,18 +45,21 @@ public class XmlServiceImpl implements XmlService {
 		    }
 			return list;
 		} catch (DocumentException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
+		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
     @Override
     public void createXml(String filename, List<Person> persons) {
+    	Objects.requireNonNull(filename);
+    	Objects.requireNonNull(persons);
         Document document = createDocument(persons);
         try (FileWriter out = new FileWriter(filename)) {
             document.write(out);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
     
