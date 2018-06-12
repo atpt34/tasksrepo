@@ -1,0 +1,20 @@
+<root>
+	<person id="19">
+		<address>Kiyv</address>
+		<name>Jack</name>
+		<cash>10000</cash>
+		<education>Schevchenko</education>
+	</person>
+	<person id="43">
+		<cash>8600</cash>
+		<address>Minsk</address>
+		<education>MPI</education>
+		<name>Vitaly</name>
+	</person>
+	<person id="23">
+		<education>Harvard</education>
+		<cash>18000</cash>
+		<address>Lviv</address>
+		<name>Josh</name>
+	</person>
+</root>

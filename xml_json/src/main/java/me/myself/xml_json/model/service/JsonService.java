@@ -8,6 +8,8 @@ public interface JsonService {
 
   List<Exchange> parseJson(String filename);
   
+  List<Exchange> parseJsonByUrl(String url);
+  
   void createJson(String filname, List<Exchange> exchanges);
     
 }

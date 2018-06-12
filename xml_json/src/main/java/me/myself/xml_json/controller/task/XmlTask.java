@@ -9,7 +9,9 @@ import me.myself.xml_json.view.View;
 
 public class XmlTask implements Task {
 
-	private XmlService parseService;
+	private static final String OUTPUT_XML = "src/resources/output.xml";
+	
+    private XmlService parseService;
     private View view;
 
 	public XmlTask(XmlService parseService, View view) {
@@ -20,9 +22,11 @@ public class XmlTask implements Task {
 	@Override
 	public void execute(XmlTask this, String filename) {
 		List<Person> list = parseService.parseXml(filename);
-		List<Person> special = list.stream().filter(p -> p.getCash() > 10000).collect(Collectors.toList());
+		List<Person> special = list.stream()
+		                        .filter(p -> p.getCash() > 10000)
+		                        .collect(Collectors.toList());
 		view.printMessage(special.toString());
-		parseService.createXml("output.xml", special);
+		parseService.createXml(OUTPUT_XML, special);
 	}
 
 }

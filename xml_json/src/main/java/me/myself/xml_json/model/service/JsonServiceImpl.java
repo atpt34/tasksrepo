@@ -6,7 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -50,12 +53,6 @@ public class JsonServiceImpl implements JsonService {
     public List<Exchange> parseJson(String filename) {
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateDeserializer()).create();
         File file = new File(filename);
-        
-//        Exchange exchange = gson.fromJson(
-//                "{\"r030\":933,\"txt\":\"Білоруський рубль\",\"rate\":13.12192,\"cc\":\"BYN\",\"exchangedate\":\"09.06.2018\"}",
-//                Exchange.class);
-//        System.out.println(exchange);
-        
         try {
             Exchange[] exchanges = gson.fromJson(new BufferedReader(new FileReader(file)), Exchange[].class);
             return new ArrayList<>(Arrays.asList(exchanges));
@@ -66,10 +63,22 @@ public class JsonServiceImpl implements JsonService {
     }
 
     @Override
+    public List<Exchange> parseJsonByUrl(String url) {
+        try {
+            Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateDeserializer()).create();
+            Exchange[] exchanges = gson.fromJson(new InputStreamReader(new URL(url).openStream(), "UTF-8"),
+                                                Exchange[].class);
+            return new ArrayList<>(Arrays.asList(exchanges));
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+    
+    @Override
     public void createJson(String filename, List<Exchange> exchanges) {
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer()).create();
         String json = gson.toJson(exchanges.toArray());
-        System.out.println(json);
         try (FileWriter out = new FileWriter(filename)) {
             out.write(json);
         } catch (IOException e) {

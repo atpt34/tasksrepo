@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
+import javax.management.RuntimeErrorException;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -34,6 +36,9 @@ public class XmlServiceImpl implements XmlService {
 			File file = new File(filename);
 			Document document = reader.read(file);
 			Element root = document.getRootElement();
+			if (!root.getName().equals(ROOT)) {
+			    throw new RuntimeException("not valid root element");
+			}
 			for (Iterator<Element> it = root.elementIterator(PERSON); it.hasNext();) {
 			    Element elem = it.next();
 			    int id = Integer.parseInt(elem.attributeValue(ID));
@@ -69,9 +74,9 @@ public class XmlServiceImpl implements XmlService {
         for (Person person : persons) {
             root.addElement(PERSON)
                     .addAttribute(ID, Integer.toString(person.getId()))
-                    .addElement(NAME).addText(person.getName())
-                    .addElement(ADDRESS).addText(person.getAddress())
-                    .addElement(EDUCATION).addText(person.getEducation())
+                    .addElement(NAME).addText(Objects.requireNonNull(person.getName()))
+                    .addElement(ADDRESS).addText(Objects.requireNonNull(person.getAddress()))
+                    .addElement(EDUCATION).addText(Objects.requireNonNull(person.getEducation()))
                     .addElement(CASH).addText(Integer.toString(person.getCash()));
         }
         return document;
